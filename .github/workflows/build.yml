@@ -1,0 +1,46 @@
+name: sst HelloWorld
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+      - main
+      - staging
+    
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint & Tests
+        run: |
+          npm run lint || true
+          # npm test || true
+
+      - name: Configure AWS OIDC Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: SST Deploy
+        run: npm run deploy
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}

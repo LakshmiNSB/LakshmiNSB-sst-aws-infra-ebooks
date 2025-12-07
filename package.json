@@ -1,0 +1,33 @@
+{
+  "name": "lakshminsb-sst-aws-infra-ebooks",
+  "version": "1.0.0",
+  "description": "aws services provisionanig using sst IaC",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sst dev",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "lint": "eslint . -ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LakshmiNSB/LakshmiNSB-sst-aws-infra-ebooks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LakshmiNSB/LakshmiNSB-sst-aws-infra-ebooks/issues"
+  },
+  "homepage": "https://github.com/LakshmiNSB/LakshmiNSB-sst-aws-infra-ebooks#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.159",
+    "@types/node": "^24.10.1",
+    "sst": "^3.17.25",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "sst": "3.17.25"
+  }
+}
