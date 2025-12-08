@@ -18,11 +18,11 @@ export default $config({
       const compute = new ComputeStack(new Stack("ComputeStack"));
 
       const api = new ApiStack(new Stack("ApiStack"), {
-        hello: compute.helloWrold,
+        hello: compute.helloWorld,
       });
 
       compute.stack.addOutput({
-        Fn_HelloWorld_URL: compute.helloWrold,
+        Fn_HelloWorld_URL: compute.helloWorld.url,
       });
 
       api.stack.addOutput({

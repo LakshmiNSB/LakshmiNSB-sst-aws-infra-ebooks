@@ -1,12 +1,14 @@
-import { aws, Stack } from 'sst';
+/// <reference path="./.sst/platform/config.d.ts" />
+import { Stack } from 'sst';
+import { Api } from "sst/aws";
 
 export class ApiStack {
     readonly stack: Stack;
-    readonly api: aws.ApiGatewayV2;
+    readonly api: Api;
 
     constructor(stack: Stack, props: any) {
         this.stack = stack;
-        this.api = new aws.ApiGatewayV2("HttpApi", {});
+        this.api = new Api(stack, "HttpApi", {});
 
         // Map routes to Lambda
         this.api.route('GET /hello', props.helloWorld);

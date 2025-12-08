@@ -23,11 +23,8 @@
   "devDependencies": {
     "@types/aws-lambda": "8.10.159",
     "@types/node": "^24.10.1",
-    "sst": "^3.17.25",
+    "sst": "^3.9.28",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "sst": "3.17.25"
   }
 }
