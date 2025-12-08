@@ -42,7 +42,8 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: SST Deploy
-        run: npm run deploy
+      - name: SST Deploy to dev
+        if: github.event_name == 'push'
+        run: npm run deploy -- --stage dev
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
