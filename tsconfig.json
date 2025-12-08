@@ -10,5 +10,5 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "dist"
   },
-  "include": ["src", "sst.config.ts"]
+  "include": ["src", "sst.config.ts", "infra"]
 }

@@ -1,4 +1,3 @@
-/// <reference path="./.sst/platform/config.d.ts" />
 import { Stack } from 'sst';
 import { Api } from "sst/aws";
 
