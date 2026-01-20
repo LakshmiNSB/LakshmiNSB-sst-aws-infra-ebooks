@@ -45,3 +45,34 @@ new aws.vpc.SecurityGroupEgressRule(`${ec2Name}-egress-all`, {
 });
 
 export const securityGroupId = ec2Sg.id;
+
+
+ec2IngressRules:
+  - description: Fortigate SSH
+    protocol: tcp
+    ports: [22]
+    cidrs:
+      - 10.255.104.0/22
+      - 10.254.60.0/22
+
+  - description: Fortigate Web Console, HTTP/HTTPS Public
+    protocol: tcp
+    ports: [80, 443]
+    cidrs:
+      - 10.254.60.0/22
+      - 10.255.104.0/22
+
+  - description: ROC FortiManager access to FortiGate
+    protocol: "-1"
+    ports:
+      - from: 0
+        to: 0
+    cidrs:
+      - 10.255.104.0/22
+
+  - description: HTTPS from ALB SG
+    protocol: tcp
+    ports: [443]
+    sourceSgIds:
+      - sg-0dbfcca6f3864be32
+
