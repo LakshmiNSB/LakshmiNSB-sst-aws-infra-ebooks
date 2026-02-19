@@ -441,3 +441,15 @@ export class Ec2Instance extends tp.TpComponentResource<
     };
   }
 }
+
+
+
+    if (!privateSubnetId) {
+      const privateNetwork = tp.Network.getPrivateNetwork();
+      privateSubnetId = privateNetwork.getSubnetIds()?.apply((ids) => {
+        if (!ids || ids.length === 0) {
+          throw new Error('No secondary ENI subnet found for vpc');
+        }
+        return ids[0];
+      })
+    }
