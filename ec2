@@ -453,3 +453,53 @@ export class Ec2Instance extends tp.TpComponentResource<
         return ids[0];
       })
     }
+
+---------------------------------------------------------------------
+
+if (!privateSubnetId) {
+
+  const privateNetwork = tp.Network.getPrivateNetwork();
+
+  privateSubnetId = pulumi
+    .all([
+      publicSubnetId,
+      privateNetwork.getSubnetIds()
+    ])
+    .apply(async ([pubSubnetId, privateSubnetIds]) => {
+
+      if (!privateSubnetIds || privateSubnetIds.length === 0) {
+
+        throw new Error("No private subnets found");
+
+      }
+
+      // Get Public subnet AZ
+
+      const publicSubnet = await aws.ec2.getSubnet({
+        id: pubSubnetId,
+      });
+
+      // Find private subnet in SAME AZ
+
+      for (const subnetId of privateSubnetIds) {
+
+        const subnet = await aws.ec2.getSubnet({
+          id: subnetId,
+        });
+
+        if (subnet.availabilityZone === publicSubnet.availabilityZone) {
+
+          return subnetId;
+
+        }
+
+      }
+
+      throw new Error(
+        `No private subnet found in same AZ as public subnet (${publicSubnet.availabilityZone})`
+      );
+
+    });
+
+}
+
